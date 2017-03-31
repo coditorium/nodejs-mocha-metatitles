@@ -8,8 +8,7 @@
     "test": "mocha --require ./lib ./test/**/*.spec.js",
     "ci": "npm run lint && npm run test",
     "preversion": "npm whoami && npm run ci",
-    "version": "npm run build && git add -A",
-    "postversion": "git push && git push --tags npm publish ./"
+    "postversion": "git push && git push --tags && npm publish ./"
   },
   "keywords": [],
   "author": "",
