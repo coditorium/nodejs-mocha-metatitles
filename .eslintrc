@@ -1,0 +1,11 @@
+extends: coditorium/base
+globals:
+  fixtures: false
+  expect: false
+  sinon: false
+  fastTest: false
+  slowTest: false
+  unitTest: false
+  specTest: false
+  acceptTest: false
+  PACKAGE: false
