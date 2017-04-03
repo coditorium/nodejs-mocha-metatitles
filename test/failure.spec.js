@@ -9,7 +9,7 @@ const runTestFile = (filePath, callback) => {
   const reporterBuilder = new MockReporterBuilder();
   mocha.addFile(path.join(__dirname, filePath));
   mocha.reporter(reporterBuilder.build()).run(() => {
-    callback(null, reporterBuilder.testTitles);
+    callback(null, reporterBuilder);
   });
 };
 
@@ -20,11 +20,25 @@ const formatTestTitle = (testType, fileName, title) => {
   return `${formattedPrefix}\n  ${title}`;
 };
 
-describe('Linter config', () => {
+describe('Mocha metatitles', () => {
   it('should generate error for sample.js', (done) => {
-    runTestFile('sample.js', (err, testTitles) => {
-      assert.equal(testTitles[0], formatTestTitle('slow', 'test/sample.js', 'Slow test An example of a slow test'));
-      assert.equal(testTitles[1], formatTestTitle('fast', 'test/sample.js', 'Fast test An example of a fast test'));
+    runTestFile('samples/testType.test.js', (err, { testTitles }) => {
+      assert.equal(testTitles[0], formatTestTitle('slow', 'test/samples/testType.test.js', 'Slow test: An example of a slow test'));
+      assert.equal(testTitles[1], formatTestTitle('fast', 'test/samples/testType.test.js', 'Fast test: An example of a fast test'));
+      done();
+    });
+  });
+
+  it('should generate error with a test wrapper', (done) => {
+    runTestFile('samples/testWrapper.test.js', (err, { testTitles }) => {
+      assert.equal(testTitles[0], formatTestTitle('unit', 'test/samples/testWrapper.test.js', 'Wrapped test: An example of a wrapped test'));
+      done();
+    });
+  });
+
+  it('should skip a test', (done) => {
+    runTestFile('samples/skip.test.js', (err, { pendingTestTitles }) => {
+      assert.equal(pendingTestTitles[0], formatTestTitle('unit', 'test/samples/skip.test.js', 'Skipped test: An example of a skipped test'));
       done();
     });
   });
