@@ -1,6 +1,6 @@
 const Mocha = require('mocha');
 
-module.exports = function MockReporterBuilder() {
+function MockReporterBuilder() {
   const that = this;
   this.testTitles = [];
   this.passedTestTitles = [];
@@ -14,4 +14,17 @@ module.exports = function MockReporterBuilder() {
     runner.on('fail', test => that.failedTestTitles.push(test.fullTitle()));
     runner.on('pending', test => that.pendingTestTitles.push(test.fullTitle()));
   };
+}
+
+const runTestFile = (filePath, callback) => {
+  const resolvedPath = require.resolve(filePath);
+  delete require.cache[resolvedPath];
+  const mocha = new Mocha();
+  const reporterBuilder = new MockReporterBuilder();
+  mocha.addFile(resolvedPath);
+  mocha.reporter(reporterBuilder.build()).run(() => {
+    callback(null, reporterBuilder);
+  });
 };
+
+module.exports = runTestFile;

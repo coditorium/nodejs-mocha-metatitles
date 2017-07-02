@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "mocha-metatitles",
+  "description": "schema for mocha-metatitles options",
+  "type": "object",
+  "properties": {
+    "ignore": {
+      "type": "boolean",
+      "description": "Ignore the test"
+    },
+    "argv": {
+      "type": "object",
+      "description": "Commnad line arguments that must be set in order to execute the test"
+    },
+    "stack": {
+      "type": "number",
+      "multipleOf": 1,
+      "minimum": 0,
+      "description": "Stack entries to be removed when resolving the filename"
+    }
+  },
+  "additionalProperties": false
+}
