@@ -1,4 +1,4 @@
-const { buildTestType } = require('../../lib');
+const buildTestType = require('../../lib');
 
 const unitTest = buildTestType('unit');
 

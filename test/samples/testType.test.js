@@ -1,4 +1,4 @@
-const { buildTestType } = require('../../lib');
+const buildTestType = require('../../lib');
 
 const slowTest = buildTestType('slow');
 const fastTest = buildTestType('fast');

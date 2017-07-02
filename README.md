@@ -11,10 +11,10 @@ Add metadata to [mocha](https://github.com/mochajs/mocha) test titles.
 Build some test types and make them globally available
 
 ```js
-const { buildTestType } = require('mocha-metatitles');
+const mochaTestType = require('mocha-metatitles');
 
-global.slowTest = buildTestType('slow');
-global.fastTest = buildTestType('fast');
+global.slowTest = mochaTestType('slow');
+global.fastTest = mochaTestType('fast');
 ```
 
 Use test types like the [`describe`](https://mochajs.org/#getting-started) function from mocha:
@@ -40,8 +40,8 @@ fastTest('Fast test title:', () => {
 - Setup conditional test execution using `options.argv` parameter. See more [options](lib/schema/optionsSchema.json)
 
 ```js
-const { buildTestType } = require('mocha-metatitles');
-const slowTest = buildTestType('slow', { argv: { slowTests: true} });
+const mochaTestType = require('mocha-metatitles');
+const slowTest = mochaTestType('slow', { argv: { slowTests: true} });
 
 slowTest('Slow test:', () => {
   it('Runs only on command line parameter slowTests=true', () => {
