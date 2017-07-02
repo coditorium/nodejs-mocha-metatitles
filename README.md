@@ -13,15 +13,15 @@ Build some test types and make them globally available
 ```js
 const { buildTestType } = require('mocha-metatitles');
 
-global.uiTest = buildTestType('ui');
-global.unitTest = buildTestType('unit');
+global.slowTest = buildTestType('slow');
+global.fastTest = buildTestType('fast');
 ```
 
 Use test types like the [`describe`](https://mochajs.org/#getting-started) function from mocha:
 
 ```js
-unitTest('Unit test title:', () => {
-  it('should work correctly', () => {
+fastTest('Fast test title:', () => {
+  it('should work correctly and be fast', () => {
     // empty
   });
 }
