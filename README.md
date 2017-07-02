@@ -6,6 +6,27 @@
 
 Add metadata to [mocha](https://github.com/mochajs/mocha) test titles.
 
+## Sample usage
+
+Build some test types and make them globally available
+
+```js
+const { buildTestType } = require('mocha-metatitles');
+
+global.uiTest = buildTestType('ui');
+global.unitTest = buildTestType('unit');
+```
+
+Use test types like the [`describe`](https://mochajs.org/#getting-started) function from mocha:
+
+```js
+unitTest('Unit test title:', () => {
+  it('should work correctly', () => {
+    // empty
+  });
+}
+```
+
 ## Features
 
 - Test titles with test type and file path
@@ -15,3 +36,16 @@ Add metadata to [mocha](https://github.com/mochajs/mocha) test titles.
 - Easy [grep](https://mochajs.org/#g---grep-pattern) through test types
 
 ![grep-screenshot](screenshot-grep.png "Grep Screenshot")
+
+- Setup conditional test execution using `options.argv` parameter. See more [options](lib/schema/optionsSchema.json)
+
+```js
+const { buildTestType } = require('mocha-metatitles');
+const slowTest = buildTestType('slow', { argv: { slowTests: true} });
+
+slowTest('Slow test:', () => {
+  it('Runs only on command line parameter slowTests=true', () => {
+    // empty
+  });
+}
+```
